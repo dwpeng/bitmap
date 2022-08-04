@@ -11,6 +11,7 @@ class _Bitmap:
         self._bitmap_ptr = bitmap_ptr
     
     def _dump(self, path):
+        assert type(path) is str
         return cbitmap.dump(self._bitmap_ptr, path)
 
     def _get(self, n):
@@ -20,6 +21,10 @@ class _Bitmap:
     def _set(self, n):
         assert type(n) is int
         return cbitmap.set(self._bitmap_ptr, n)
+
+    def _delete(self, n):
+        assert type(n) is int
+        return cbitmap.delete(self._bitmap_ptr, n)
 
     def __len__(self):
         if self._bitmap_ptr:
@@ -63,8 +68,10 @@ class Bitmap():
     def set(self, n):
         return getattr(self._bitmap, '_set')(n)
     
+    def delete(self, n):
+        return getattr(self._bitmap, '_delete')(n)
+
     def dump(self, path):
-        assert type(path) is str
         return getattr(self._bitmap, '_dump')(path)
 
     def __len__(self):

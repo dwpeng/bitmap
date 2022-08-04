@@ -55,6 +55,12 @@ void set(Bitmap *b, uint64_t n) {
   b->buff[count] = b->buff[count] | (1 << offset);
 }
 
+void delete(Bitmap *b, uint64_t n) {
+  uint64_t offset = n % 8;
+  uint64_t count = n / 8;
+  b->buff[count] = b->buff[count] & (~(1 << offset));
+}
+
 void free_bitmap(Bitmap *b) {
   if (b) {
     free(b);
@@ -151,6 +157,16 @@ PyObject *set_number(PyObject *self, PyObject *args) {
   Py_RETURN_TRUE;
 }
 
+PyObject *delete_number(PyObject *self, PyObject *args) {
+  void *ptr = NULL;
+  uint64_t n = 0;
+  if (!PyArg_ParseTuple(args, "ll", &ptr, &n)) {
+    Py_RETURN_FALSE;
+  }
+  delete((Bitmap *)ptr, n);
+  Py_RETURN_TRUE;
+}
+
 static PyMethodDef Methods[] = {
     {"create", create, METH_VARARGS, "create a bitmap"},
     {"load", load, METH_VARARGS, "load a bitmap"},
@@ -159,6 +175,7 @@ static PyMethodDef Methods[] = {
     {"len", len, METH_VARARGS, "the length of a bitmap"},
     {"get", get_number, METH_VARARGS, "get a number from bitmap"},
     {"set", set_number, METH_VARARGS, "set a number to bitmap"},
+    {"delete", delete_number, METH_VARARGS, "delete a number from bitmap"},
     {NULL, NULL, 0, NULL}};
 
 static struct PyModuleDef module = {PyModuleDef_HEAD_INIT, "bitmap",
