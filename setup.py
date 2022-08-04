@@ -22,21 +22,5 @@ setup(
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     ext_modules=[module],
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Operating System :: MacOS",
-        "Operating System :: POSIX :: Linux",
-        "Operating System :: Microsoft :: Windows",
-        "Topic :: Software Development :: Bitmap",
-        "Topic :: Software Development :: c",
-        "Topic :: System :: bitmap"
-    ],
     python_requires=">=3.6"
 )
