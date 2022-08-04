@@ -12,9 +12,13 @@ module = setuptools.Extension(
 
 setup(
     name="cbitmap",
-    version="1.0",
-    description="c version bitmap",
     author="dwpeng",
+    author_email="1732889554@qq.com",
+    url="https://github.com/dwpeng/bitmap",
+    description="A C-based bitmap implementation.",
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
+    version="0.0.1",
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     ext_modules=[module],
@@ -30,9 +34,9 @@ setup(
         "Operating System :: MacOS",
         "Operating System :: POSIX :: Linux",
         "Operating System :: Microsoft :: Windows",
-        "Topic :: Software Development :: Quality Assurance",
-        "Topic :: Software Development :: Bug Tracking",
-        "Topic :: System :: Logging"
+        "Topic :: Software Development :: Bitmap",
+        "Topic :: Software Development :: c",
+        "Topic :: System :: bitmap"
     ],
     python_requires=">=3.6"
 )
