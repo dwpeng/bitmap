@@ -20,7 +20,12 @@ void print_bitmap(Bitmap *b) {
   uint64_t size = b->size;
   uint64_t i, j;
   for (i = 0; i < size / 10; i++) {
-    printf("%ld: ", i);
+
+#ifdef __APPLE__
+    printf("%llu: ", i);
+#else
+    printf("%lu", i);
+#endif
     for (j = 0; j < 10; j++) {
       printf("%d\t", b->buff[i * 10 + j]);
     }
