@@ -40,6 +40,15 @@ print(b.get(1))   # False
 print(b.get(100000)) # False
 ```
 
+### delete
+```python
+b = Bitmap(100)
+b.set(10)
+print(b.get(10))  # True
+b.delete(10)
+print(b.get(10))  # False
+```
+
 ### Persistence
 
 ```python
