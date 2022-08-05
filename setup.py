@@ -1,10 +1,11 @@
 import setuptools
-import sys
+from Cython.Build import cythonize
+
 module = setuptools.Extension(
     'bitmap',
-    sources=['./src/cbitmap/module/bitmap.c'],
-    extra_compile_args={"win32": []}.get(sys.platform, ["-Werror", "-std=c99"]),
-    extra_link_args={"win32": []}.get(sys.platform, ["-lpthread"])
+    [
+        './src/cbitmap/module/ccbitmap.pyx', 
+    ],
 )
 
 __version__ = '0.0.2'
@@ -20,6 +21,6 @@ setuptools.setup(
     version=__version__,
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
-    ext_modules=[module],
+    ext_modules=cythonize([module]),
     python_requires=">=3.6"
 )
