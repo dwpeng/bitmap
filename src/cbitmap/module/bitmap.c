@@ -2,7 +2,7 @@
 #include "Python.h"
 #include <stdbool.h>
 
-#define uint64_t unsigned long 
+#define uint64_t unsigned long long int
 typedef struct Bitmap {
   uint64_t size;
   uint64_t ele_size;
@@ -21,7 +21,7 @@ void print_bitmap(Bitmap *b) {
   uint64_t size = b->size;
   uint64_t i, j;
   for (i = 0; i < size / 10; i++) {
-    printf("%lu", i);
+    printf("%llu", i);
     for (j = 0; j < 10; j++) {
       printf("%d\t", b->buff[i * 10 + j]);
     }
