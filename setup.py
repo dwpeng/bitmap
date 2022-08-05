@@ -9,6 +9,7 @@ module = setuptools.Extension(
     extra_link_args={"win32": []}.get(sys.platform, ["-lpthread"])
 )
 
+__version__ = '0.0.2'
 
 setup(
     name="cbitmap",
@@ -18,7 +19,7 @@ setup(
     description="A C-based bitmap implementation.",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    version="0.0.1",
+    version=__version__,
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     ext_modules=[module],

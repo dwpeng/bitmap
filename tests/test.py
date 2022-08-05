@@ -40,15 +40,15 @@ class BitmapTest(TestCase):
         for i in range(10, 20):
             ret2.append(b.get(i))
         
-        for i in range(10):
+        for i in range(5):
             b.delete(i)
 
-        for i in range(10):
+        for i in range(5):
             ret3.append(b.get(i))
 
         del b
         ret1 = all(ret1)
-        ret3 = all(ret3)
+        ret3 = not any(ret3)
         ret2 = not any(ret2)
         self.assertTrue(ret1 is True)
         self.assertTrue(ret2 is True)
