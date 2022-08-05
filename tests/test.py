@@ -26,10 +26,11 @@ class BitmapTest(TestCase):
         os.remove('data')
         del b
 
-    def test_set_and_get(self):
+    def test_set_and_get_and_delete(self):
         b = self.init_bitmap_by_size(20)
         ret1 = []
         ret2 = []
+        ret3 = []
         for i in range(10):
             b.set(i)
         
@@ -38,9 +39,17 @@ class BitmapTest(TestCase):
 
         for i in range(10, 20):
             ret2.append(b.get(i))
-            
+        
+        for i in range(10):
+            b.delete(i)
+
+        for i in range(10):
+            ret3.append(b.get(i))
+
         del b
         ret1 = all(ret1)
+        ret3 = all(ret3)
         ret2 = not any(ret2)
         self.assertTrue(ret1 is True)
         self.assertTrue(ret2 is True)
+        self.assertTrue(ret3 is True)
