@@ -1,5 +1,5 @@
 #define PY_SSIZE_T_CLEAN
-#include "Python.h"
+#include <Python.h>
 #include <stdbool.h>
 
 #define uint64_t unsigned long long int
@@ -132,7 +132,7 @@ PyObject *len(PyObject *self, PyObject *args) {
     Py_RETURN_NONE;
   }
   uint64_t ele_size = ((Bitmap *)ptr)->ele_size;
-  return PyLong_FromUnsignedLong(ele_size);
+  return PyLong_FromUnsignedLongLong(ele_size);
 }
 
 PyObject *get_number(PyObject *self, PyObject *args) {

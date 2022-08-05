@@ -1,7 +1,5 @@
-from distutils.core import setup
 import setuptools
 import sys
-
 module = setuptools.Extension(
     'bitmap',
     sources=['./src/cbitmap/module/bitmap.c'],
@@ -11,7 +9,7 @@ module = setuptools.Extension(
 
 __version__ = '0.0.2'
 
-setup(
+setuptools.setup(
     name="cbitmap",
     author="dwpeng",
     author_email="1732889554@qq.com",
