@@ -10,7 +10,7 @@ class BitmapTest(TestCase):
     
     @staticmethod
     def init_bitmap_by_path(path):
-        return Bitmap(1).load(path)
+        return Bitmap().load(path)
 
     def test_len(self):
         b = self.init_bitmap_by_size(10)
