@@ -58,24 +58,18 @@ jobs:
       - name: Install dependencies
         if: matrix.os != 'windows-latest'
         run: |
+          python -m pip install build
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Install dependencies on Windows
         if: matrix.os == 'windows-latest'
         run: |
+          python -m pip install build
           python -m pip install --upgrade pip
           if (Test-Path -Path '.\requirements.txt' -PathType Leaf) {pip install -r requirements.txt}
-      - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel -U
 
       - name: Build wheels
-        run: python -m cibuildwheel --output-dir wheelhouse
-        env:
-          CIBW_BUILD: 'cp${{ matrix.python-version }}-*'
-          CIBW_SKIP: '*musllinux*'
-          CIBW_ARCHS: ${{matrix.arch}}
-          CIBW_MANYLINUX_*_IMAGE: ${{ matrix.manylinux-image }}
-          CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.manylinux-image }}
+        run: python -m build --no-isolation --wheel --outdir wheelhous
 
       - name: Publish wheels to PyPI Unix
         if: matrix.os != 'windows-latest' 
@@ -94,26 +88,3 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           twine upload (Get-ChildItem wheelhouse/*.whl)
-
-  deploy-tar:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Build source tar
-        run: |
-          python setup.py sdist
-      - name: Publish wheels to PyPI
-        continue-on-error: true
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          twine upload dist/*tar*
