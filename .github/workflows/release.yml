@@ -69,7 +69,7 @@ jobs:
           if (Test-Path -Path '.\requirements.txt' -PathType Leaf) {pip install -r requirements.txt}
 
       - name: Build wheels
-        run: python -m build --no-isolation --wheel --outdir wheelhous
+        run: python -m build --no-isolation --wheel --outdir wheelhouse
 
       - name: Publish wheels to PyPI Unix
         if: matrix.os != 'windows-latest' 
