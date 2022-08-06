@@ -1,11 +1,7 @@
 name: Python package build and publish
 on:
-  push:
+  release:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  schedule:
-    - cron: '0 5 * * *'
 
 jobs:
   build:
