@@ -8,7 +8,7 @@ module = setuptools.Extension(
     ],
 )
 
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 setuptools.setup(
     name="cbitmap",
