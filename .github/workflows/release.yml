@@ -30,23 +30,10 @@ jobs:
         python -m pip install --upgrade pip
         if (Test-Path -Path '.\requirements.txt' -PathType Leaf) {pip install -r requirements.txt}
 
-    - name: Build wheels
-      run: python -m build --no-isolation --wheel --outdir wheelhouse
-
-    - name: Publish wheels to PyPI Unix
-      if: matrix.os != 'windows-latest' 
-      continue-on-error: true
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        twine upload wheelhouse/*.whl
-
-    - name: Publish wheels to PyPI Windows
-      if: matrix.os == 'windows-latest' 
-      continue-on-error: true
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
-        twine upload (Get-ChildItem wheelhouse/*.whl)
+    - name: Build package
+      run: python -m build
+    - name: Publish package
+      uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_PASSWORD }}
