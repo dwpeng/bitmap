@@ -935,6 +935,7 @@ struct __pyx_vtabstruct_6bitmap_Bitmap {
   PyObject *(*_set)(struct __pyx_obj_6bitmap_Bitmap *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch);
   PyObject *(*_delete)(struct __pyx_obj_6bitmap_Bitmap *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch);
   PyObject *(*_load)(struct __pyx_obj_6bitmap_Bitmap *, char *, int __pyx_skip_dispatch);
+  PyObject *(*_set_kmers)(struct __pyx_obj_6bitmap_Bitmap *, char *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch);
   PyObject *(*_dump)(struct __pyx_obj_6bitmap_Bitmap *, char *, int __pyx_skip_dispatch);
 };
 static struct __pyx_vtabstruct_6bitmap_Bitmap *__pyx_vtabptr_6bitmap_Bitmap;
@@ -1245,6 +1246,7 @@ static int __pyx_f_6bitmap_6Bitmap__get(struct __pyx_obj_6bitmap_Bitmap *__pyx_v
 static PyObject *__pyx_f_6bitmap_6Bitmap__set(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, unsigned PY_LONG_LONG __pyx_v_n, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_f_6bitmap_6Bitmap__delete(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, unsigned PY_LONG_LONG __pyx_v_n, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_f_6bitmap_6Bitmap__load(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_6bitmap_6Bitmap__set_kmers(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_seq, unsigned PY_LONG_LONG __pyx_v_kmer_size, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path, int __pyx_skip_dispatch); /* proto*/
 
 /* Module declarations from 'cbitmap' */
@@ -1258,6 +1260,7 @@ int __pyx_module_is_main_bitmap = 0;
 /* Implementation of 'bitmap' */
 static PyObject *__pyx_builtin_TypeError;
 static const char __pyx_k_get[] = "_get";
+static const char __pyx_k_seq[] = "seq";
 static const char __pyx_k_set[] = "_set";
 static const char __pyx_k_dump[] = "_dump";
 static const char __pyx_k_load[] = "_load";
@@ -1271,7 +1274,9 @@ static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_TypeError[] = "TypeError";
+static const char __pyx_k_kmer_size[] = "kmer_size";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
+static const char __pyx_k_set_kmers[] = "_set_kmers";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
@@ -1284,6 +1289,7 @@ static PyObject *__pyx_n_s_delete;
 static PyObject *__pyx_n_s_dump;
 static PyObject *__pyx_n_s_get;
 static PyObject *__pyx_n_s_getstate;
+static PyObject *__pyx_n_s_kmer_size;
 static PyObject *__pyx_n_s_load;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
@@ -1292,7 +1298,9 @@ static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
+static PyObject *__pyx_n_s_seq;
 static PyObject *__pyx_n_s_set;
+static PyObject *__pyx_n_s_set_kmers;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_size;
@@ -1303,11 +1311,12 @@ static PyObject *__pyx_pf_6bitmap_6Bitmap_4_get(struct __pyx_obj_6bitmap_Bitmap 
 static PyObject *__pyx_pf_6bitmap_6Bitmap_6_set(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, unsigned PY_LONG_LONG __pyx_v_n); /* proto */
 static PyObject *__pyx_pf_6bitmap_6Bitmap_8_delete(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, unsigned PY_LONG_LONG __pyx_v_n); /* proto */
 static PyObject *__pyx_pf_6bitmap_6Bitmap_10_load(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path); /* proto */
-static PyObject *__pyx_pf_6bitmap_6Bitmap_12_dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path); /* proto */
-static Py_ssize_t __pyx_pf_6bitmap_6Bitmap_14__len__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
-static int __pyx_pf_6bitmap_6Bitmap_16__bool__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6bitmap_6Bitmap_18__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_6bitmap_6Bitmap_20__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_6bitmap_6Bitmap_12_set_kmers(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_seq, unsigned PY_LONG_LONG __pyx_v_kmer_size); /* proto */
+static PyObject *__pyx_pf_6bitmap_6Bitmap_14_dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path); /* proto */
+static Py_ssize_t __pyx_pf_6bitmap_6Bitmap_16__len__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
+static int __pyx_pf_6bitmap_6Bitmap_18__bool__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6bitmap_6Bitmap_20__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6bitmap_6Bitmap_22__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_6bitmap_Bitmap(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_tuple_;
@@ -2074,7 +2083,7 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__load(CYTHON_UNUSED struct __pyx_obj_6b
  *         b._bitmap = cbitmap.BitmapLoad(path)
  *         return b             # <<<<<<<<<<<<<<
  * 
- *     cpdef _dump(self, char* path):
+ *     cpdef _set_kmers(self, char* seq, unsigned long long kmer_size):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(((PyObject *)__pyx_v_b));
@@ -2160,12 +2169,247 @@ static PyObject *__pyx_pf_6bitmap_6Bitmap_10_load(struct __pyx_obj_6bitmap_Bitma
 /* "bitmap.pyx":35
  *         return b
  * 
+ *     cpdef _set_kmers(self, char* seq, unsigned long long kmer_size):             # <<<<<<<<<<<<<<
+ *         cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)
+ * 
+ */
+
+static PyObject *__pyx_pw_6bitmap_6Bitmap_13_set_kmers(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_6bitmap_6Bitmap__set_kmers(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_seq, unsigned PY_LONG_LONG __pyx_v_kmer_size, int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_set_kmers", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
+    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
+      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      #endif
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_kmers); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6bitmap_6Bitmap_13_set_kmers)) {
+        __Pyx_XDECREF(__pyx_r);
+        __pyx_t_3 = __Pyx_PyBytes_FromString(__pyx_v_seq); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 35, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_4 = __Pyx_PyInt_From_unsigned_PY_LONG_LONG(__pyx_v_kmer_size); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 35, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
+        __pyx_t_7 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+          if (likely(__pyx_t_6)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+            __Pyx_INCREF(__pyx_t_6);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_5, function);
+            __pyx_t_7 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_4};
+          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_4};
+          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 35, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_8);
+          if (__pyx_t_6) {
+            __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_t_3);
+          __Pyx_GIVEREF(__pyx_t_4);
+          PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_4);
+          __pyx_t_3 = 0;
+          __pyx_t_4 = 0;
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __pyx_r = __pyx_t_2;
+        __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        goto __pyx_L0;
+      }
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
+      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
+        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+      }
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    }
+    #endif
+  }
+
+  /* "bitmap.pyx":36
+ * 
+ *     cpdef _set_kmers(self, char* seq, unsigned long long kmer_size):
+ *         cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef _dump(self, char* path):
+ */
+  BitmapSetKmers(__pyx_v_self->_bitmap, __pyx_v_seq, __pyx_v_kmer_size);
+
+  /* "bitmap.pyx":35
+ *         return b
+ * 
+ *     cpdef _set_kmers(self, char* seq, unsigned long long kmer_size):             # <<<<<<<<<<<<<<
+ *         cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("bitmap.Bitmap._set_kmers", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6bitmap_6Bitmap_13_set_kmers(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_6bitmap_6Bitmap_13_set_kmers(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  char *__pyx_v_seq;
+  unsigned PY_LONG_LONG __pyx_v_kmer_size;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("_set_kmers (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_seq,&__pyx_n_s_kmer_size,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_seq)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kmer_size)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("_set_kmers", 1, 2, 2, 1); __PYX_ERR(1, 35, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_set_kmers") < 0)) __PYX_ERR(1, 35, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_seq = __Pyx_PyObject_AsWritableString(values[0]); if (unlikely((!__pyx_v_seq) && PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
+    __pyx_v_kmer_size = __Pyx_PyInt_As_unsigned_PY_LONG_LONG(values[1]); if (unlikely((__pyx_v_kmer_size == (unsigned PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("_set_kmers", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 35, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("bitmap.Bitmap._set_kmers", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_12_set_kmers(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self), __pyx_v_seq, __pyx_v_kmer_size);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6bitmap_6Bitmap_12_set_kmers(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_seq, unsigned PY_LONG_LONG __pyx_v_kmer_size) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_set_kmers", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_f_6bitmap_6Bitmap__set_kmers(__pyx_v_self, __pyx_v_seq, __pyx_v_kmer_size, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 35, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("bitmap.Bitmap._set_kmers", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "bitmap.pyx":38
+ *         cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)
+ * 
  *     cpdef _dump(self, char* path):             # <<<<<<<<<<<<<<
  *         cbitmap.BitmapDump(self._bitmap, path)
  * 
  */
 
-static PyObject *__pyx_pw_6bitmap_6Bitmap_13_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path); /*proto*/
+static PyObject *__pyx_pw_6bitmap_6Bitmap_15_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path); /*proto*/
 static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path, int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2187,11 +2431,11 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_dump); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 35, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_dump); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 38, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6bitmap_6Bitmap_13_dump)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6bitmap_6Bitmap_15_dump)) {
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_3 = __Pyx_PyBytes_FromString(__pyx_v_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 35, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyBytes_FromString(__pyx_v_path); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 38, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -2207,7 +2451,7 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *
         __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 38, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_r = __pyx_t_2;
@@ -2228,7 +2472,7 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *
     #endif
   }
 
-  /* "bitmap.pyx":36
+  /* "bitmap.pyx":39
  * 
  *     cpdef _dump(self, char* path):
  *         cbitmap.BitmapDump(self._bitmap, path)             # <<<<<<<<<<<<<<
@@ -2237,8 +2481,8 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *
  */
   BitmapDump(__pyx_v_self->_bitmap, __pyx_v_path);
 
-  /* "bitmap.pyx":35
- *         return b
+  /* "bitmap.pyx":38
+ *         cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)
  * 
  *     cpdef _dump(self, char* path):             # <<<<<<<<<<<<<<
  *         cbitmap.BitmapDump(self._bitmap, path)
@@ -2263,8 +2507,8 @@ static PyObject *__pyx_f_6bitmap_6Bitmap__dump(struct __pyx_obj_6bitmap_Bitmap *
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6bitmap_6Bitmap_13_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path); /*proto*/
-static PyObject *__pyx_pw_6bitmap_6Bitmap_13_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path) {
+static PyObject *__pyx_pw_6bitmap_6Bitmap_15_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path); /*proto*/
+static PyObject *__pyx_pw_6bitmap_6Bitmap_15_dump(PyObject *__pyx_v_self, PyObject *__pyx_arg_path) {
   char *__pyx_v_path;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2273,7 +2517,7 @@ static PyObject *__pyx_pw_6bitmap_6Bitmap_13_dump(PyObject *__pyx_v_self, PyObje
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_dump (wrapper)", 0);
   assert(__pyx_arg_path); {
-    __pyx_v_path = __Pyx_PyObject_AsWritableString(__pyx_arg_path); if (unlikely((!__pyx_v_path) && PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
+    __pyx_v_path = __Pyx_PyObject_AsWritableString(__pyx_arg_path); if (unlikely((!__pyx_v_path) && PyErr_Occurred())) __PYX_ERR(1, 38, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2281,14 +2525,14 @@ static PyObject *__pyx_pw_6bitmap_6Bitmap_13_dump(PyObject *__pyx_v_self, PyObje
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_6bitmap_6Bitmap_12_dump(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self), ((char *)__pyx_v_path));
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_14_dump(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self), ((char *)__pyx_v_path));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6bitmap_6Bitmap_12_dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path) {
+static PyObject *__pyx_pf_6bitmap_6Bitmap_14_dump(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, char *__pyx_v_path) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2297,7 +2541,7 @@ static PyObject *__pyx_pf_6bitmap_6Bitmap_12_dump(struct __pyx_obj_6bitmap_Bitma
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_dump", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6bitmap_6Bitmap__dump(__pyx_v_self, __pyx_v_path, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 35, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6bitmap_6Bitmap__dump(__pyx_v_self, __pyx_v_path, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2314,47 +2558,47 @@ static PyObject *__pyx_pf_6bitmap_6Bitmap_12_dump(struct __pyx_obj_6bitmap_Bitma
   return __pyx_r;
 }
 
-/* "bitmap.pyx":38
+/* "bitmap.pyx":41
  *         cbitmap.BitmapDump(self._bitmap, path)
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return cbitmap.BitmaLen(self._bitmap)
+ *         return cbitmap.BitmapLen(self._bitmap)
  * 
  */
 
 /* Python wrapper */
-static Py_ssize_t __pyx_pw_6bitmap_6Bitmap_15__len__(PyObject *__pyx_v_self); /*proto*/
-static Py_ssize_t __pyx_pw_6bitmap_6Bitmap_15__len__(PyObject *__pyx_v_self) {
+static Py_ssize_t __pyx_pw_6bitmap_6Bitmap_17__len__(PyObject *__pyx_v_self); /*proto*/
+static Py_ssize_t __pyx_pw_6bitmap_6Bitmap_17__len__(PyObject *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6bitmap_6Bitmap_14__len__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_16__len__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static Py_ssize_t __pyx_pf_6bitmap_6Bitmap_14__len__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
+static Py_ssize_t __pyx_pf_6bitmap_6Bitmap_16__len__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__len__", 0);
 
-  /* "bitmap.pyx":39
+  /* "bitmap.pyx":42
  * 
  *     def __len__(self):
- *         return cbitmap.BitmaLen(self._bitmap)             # <<<<<<<<<<<<<<
+ *         return cbitmap.BitmapLen(self._bitmap)             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_r = BitmaLen(__pyx_v_self->_bitmap);
+  __pyx_r = BitmapLen(__pyx_v_self->_bitmap);
   goto __pyx_L0;
 
-  /* "bitmap.pyx":38
+  /* "bitmap.pyx":41
  *         cbitmap.BitmapDump(self._bitmap, path)
  * 
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return cbitmap.BitmaLen(self._bitmap)
+ *         return cbitmap.BitmapLen(self._bitmap)
  * 
  */
 
@@ -2364,27 +2608,27 @@ static Py_ssize_t __pyx_pf_6bitmap_6Bitmap_14__len__(struct __pyx_obj_6bitmap_Bi
   return __pyx_r;
 }
 
-/* "bitmap.pyx":41
- *         return cbitmap.BitmaLen(self._bitmap)
+/* "bitmap.pyx":44
+ *         return cbitmap.BitmapLen(self._bitmap)
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
  *         return bool(len(self))
  */
 
 /* Python wrapper */
-static int __pyx_pw_6bitmap_6Bitmap_17__bool__(PyObject *__pyx_v_self); /*proto*/
-static int __pyx_pw_6bitmap_6Bitmap_17__bool__(PyObject *__pyx_v_self) {
+static int __pyx_pw_6bitmap_6Bitmap_19__bool__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_6bitmap_6Bitmap_19__bool__(PyObject *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6bitmap_6Bitmap_16__bool__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_18__bool__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_6bitmap_6Bitmap_16__bool__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
+static int __pyx_pf_6bitmap_6Bitmap_18__bool__(struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
@@ -2395,21 +2639,21 @@ static int __pyx_pf_6bitmap_6Bitmap_16__bool__(struct __pyx_obj_6bitmap_Bitmap *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "bitmap.pyx":42
+  /* "bitmap.pyx":45
  * 
  *     def __bool__(self):
  *         return bool(len(self))             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = PyObject_Length(((PyObject *)__pyx_v_self)); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(1, 42, __pyx_L1_error)
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 42, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(((PyObject *)__pyx_v_self)); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(1, 45, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(1, 42, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(1, 45, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = (!(!__pyx_t_3));
   goto __pyx_L0;
 
-  /* "bitmap.pyx":41
- *         return cbitmap.BitmaLen(self._bitmap)
+  /* "bitmap.pyx":44
+ *         return cbitmap.BitmapLen(self._bitmap)
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
  *         return bool(len(self))
@@ -2432,19 +2676,19 @@ static int __pyx_pf_6bitmap_6Bitmap_16__bool__(struct __pyx_obj_6bitmap_Bitmap *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6bitmap_6Bitmap_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_6bitmap_6Bitmap_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_6bitmap_6Bitmap_21__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_6bitmap_6Bitmap_21__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6bitmap_6Bitmap_18__reduce_cython__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_20__reduce_cython__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6bitmap_6Bitmap_18__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
+static PyObject *__pyx_pf_6bitmap_6Bitmap_20__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2489,19 +2733,19 @@ static PyObject *__pyx_pf_6bitmap_6Bitmap_18__reduce_cython__(CYTHON_UNUSED stru
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6bitmap_6Bitmap_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_6bitmap_6Bitmap_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_6bitmap_6Bitmap_23__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_6bitmap_6Bitmap_23__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_6bitmap_6Bitmap_20__setstate_cython__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_6bitmap_6Bitmap_22__setstate_cython__(((struct __pyx_obj_6bitmap_Bitmap *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6bitmap_6Bitmap_20__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_6bitmap_6Bitmap_22__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6bitmap_Bitmap *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2579,9 +2823,10 @@ static PyMethodDef __pyx_methods_6bitmap_Bitmap[] = {
   {"_set", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_7_set, METH_O, 0},
   {"_delete", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_9_delete, METH_O, 0},
   {"_load", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_11_load, METH_O, 0},
-  {"_dump", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_13_dump, METH_O, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_19__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_21__setstate_cython__, METH_O, 0},
+  {"_set_kmers", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6bitmap_6Bitmap_13_set_kmers, METH_VARARGS|METH_KEYWORDS, 0},
+  {"_dump", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_15_dump, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_21__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_6bitmap_6Bitmap_23__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -2598,7 +2843,7 @@ static PyNumberMethods __pyx_tp_as_number_Bitmap = {
   0, /*nb_negative*/
   0, /*nb_positive*/
   0, /*nb_absolute*/
-  __pyx_pw_6bitmap_6Bitmap_17__bool__, /*nb_nonzero*/
+  __pyx_pw_6bitmap_6Bitmap_19__bool__, /*nb_nonzero*/
   0, /*nb_invert*/
   0, /*nb_lshift*/
   0, /*nb_rshift*/
@@ -2648,7 +2893,7 @@ static PyNumberMethods __pyx_tp_as_number_Bitmap = {
 };
 
 static PySequenceMethods __pyx_tp_as_sequence_Bitmap = {
-  __pyx_pw_6bitmap_6Bitmap_15__len__, /*sq_length*/
+  __pyx_pw_6bitmap_6Bitmap_17__len__, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
   0, /*sq_item*/
@@ -2661,7 +2906,7 @@ static PySequenceMethods __pyx_tp_as_sequence_Bitmap = {
 };
 
 static PyMappingMethods __pyx_tp_as_mapping_Bitmap = {
-  __pyx_pw_6bitmap_6Bitmap_15__len__, /*mp_length*/
+  __pyx_pw_6bitmap_6Bitmap_17__len__, /*mp_length*/
   0, /*mp_subscript*/
   0, /*mp_ass_subscript*/
 };
@@ -2791,6 +3036,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_dump, __pyx_k_dump, sizeof(__pyx_k_dump), 0, 0, 1, 1},
   {&__pyx_n_s_get, __pyx_k_get, sizeof(__pyx_k_get), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
+  {&__pyx_n_s_kmer_size, __pyx_k_kmer_size, sizeof(__pyx_k_kmer_size), 0, 0, 1, 1},
   {&__pyx_n_s_load, __pyx_k_load, sizeof(__pyx_k_load), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -2799,7 +3045,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
+  {&__pyx_n_s_seq, __pyx_k_seq, sizeof(__pyx_k_seq), 0, 0, 1, 1},
   {&__pyx_n_s_set, __pyx_k_set, sizeof(__pyx_k_set), 0, 0, 1, 1},
+  {&__pyx_n_s_set_kmers, __pyx_k_set_kmers, sizeof(__pyx_k_set_kmers), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
@@ -2905,6 +3153,7 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_6bitmap_Bitmap._set = (PyObject *(*)(struct __pyx_obj_6bitmap_Bitmap *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch))__pyx_f_6bitmap_6Bitmap__set;
   __pyx_vtable_6bitmap_Bitmap._delete = (PyObject *(*)(struct __pyx_obj_6bitmap_Bitmap *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch))__pyx_f_6bitmap_6Bitmap__delete;
   __pyx_vtable_6bitmap_Bitmap._load = (PyObject *(*)(struct __pyx_obj_6bitmap_Bitmap *, char *, int __pyx_skip_dispatch))__pyx_f_6bitmap_6Bitmap__load;
+  __pyx_vtable_6bitmap_Bitmap._set_kmers = (PyObject *(*)(struct __pyx_obj_6bitmap_Bitmap *, char *, unsigned PY_LONG_LONG, int __pyx_skip_dispatch))__pyx_f_6bitmap_6Bitmap__set_kmers;
   __pyx_vtable_6bitmap_Bitmap._dump = (PyObject *(*)(struct __pyx_obj_6bitmap_Bitmap *, char *, int __pyx_skip_dispatch))__pyx_f_6bitmap_6Bitmap__dump;
   if (PyType_Ready(&__pyx_type_6bitmap_Bitmap) < 0) __PYX_ERR(1, 7, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1

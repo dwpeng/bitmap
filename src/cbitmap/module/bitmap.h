@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define u1 unsigned char
 #define u8 unsigned long long
@@ -17,7 +18,8 @@ Bitmap* BitmapCreate(u8 size);
 int BitmapGet(Bitmap *b, u8 n);
 void BitmapSet(Bitmap *b, u8 n);
 void BitmapDelete(Bitmap *b, u8 n);
-u8 BitmaLen(Bitmap* b);
+u8 BitmapLen(Bitmap* b);
 void BitmapFree(Bitmap *b);
 void BitmapDump(Bitmap *b, char *path);
 Bitmap *BitmapLoad(char *path);
+void BitmapSetKmers(Bitmap*b, char* seq, u8 kmer_size);

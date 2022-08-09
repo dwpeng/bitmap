@@ -11,7 +11,7 @@ Bitmap *BitmapCreate(u8 size) {
 int BitmapGet(Bitmap *b, u8 n) {
   u8 offset = n % 8;
   u8 count = n / 8;
-  if (count >= b->size)
+  if (count + 1 >= b->size)
     return false;
   u1 offset_number = (1 << offset);
   if ((b->buff[count] & offset_number) == offset_number) {
@@ -21,21 +21,21 @@ int BitmapGet(Bitmap *b, u8 n) {
 }
 
 void BitmapSet(Bitmap *b, u8 n) {
+
   u8 offset = n % 8;
   u8 count = n / 8;
-  b->buff[count] = b->buff[count] | (1 << offset);
+  if (count + 1 <= b->size)
+  b->buff[count] = b->buff[count] | (1U << offset);
 }
 
 void BitmapDelete(Bitmap *b, u8 n) {
   u8 offset = n % 8;
   u8 count = n / 8;
-  b->buff[count] = b->buff[count] & (~(1 << offset));
+  if (count + 1 <= b->size)
+    b->buff[count] = b->buff[count] & (~(1 << offset));
 }
 
-u8 BitmaLen(Bitmap* b){
-    return b->ele_size;
-}
-
+u8 BitmapLen(Bitmap *b) { return b->ele_size; }
 
 void BitmapFree(Bitmap *b) {
   if (b) {
@@ -60,4 +60,38 @@ Bitmap *BitmapLoad(char *path) {
   fread(b->buff, sizeof(u1), size, fp);
   fclose(fp);
   return b;
+}
+
+unsigned char seq_nt4_table[256] = {
+    0, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 1, 4, 4, 4, 2,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 0, 4, 1, 4, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4};
+
+void BitmapSetKmers(Bitmap *b, char *seq, u8 kmer_size) {
+  u8 len = strlen(seq);
+  u8 n = 0;
+  u8 n_mask = 0xffffffffu;
+  u8 count = 0;
+  u1 c_mask = 0b11;
+  int c = 4;
+  for (u8 i = 0; i < len; i++) {
+    c = seq_nt4_table[(int)seq[i]];
+    if (c >= 4)
+      continue;
+    n <<= 2;
+    n |= (c & c_mask);
+    n &= n_mask;
+    count++;
+    if (count >= kmer_size) {
+      BitmapSet(b, n);
+    }
+  }
 }

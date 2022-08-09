@@ -53,3 +53,11 @@ class BitmapTest(TestCase):
         self.assertTrue(ret1 is True)
         self.assertTrue(ret2 is True)
         self.assertTrue(ret3 is True)
+
+    def test_set_kemrs(self):
+        b = self.init_bitmap_by_size(20)
+        seq = 'AAcgagtcatcgatgcAAcgagtcatcgatgctagtcgta'.upper()
+        try:
+            b.set_kmers(seq, 16)
+        except Exception as e:
+            print(e)

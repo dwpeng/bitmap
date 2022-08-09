@@ -33,7 +33,11 @@ class Bitmap():
     def set(self, n):
         assert type(n) is int  and n >= 0, 'Expect a int, but got a %s' % type(n)
         return self._bitmap._set(n)
-    
+
+    def set_kmers(self, seq, kmer_size):
+        s = seq.encode('utf-8')
+        return self._bitmap._set_kmers(s, kmer_size)
+
     def delete(self, n):
         assert type(n) is int  and n >= 0, 'Expect a int, but got a %s' % type(n)
         return self._bitmap._delete(n)
@@ -47,3 +51,12 @@ class Bitmap():
 
     def __str__(self):
         return '<Bitmap %d>' % len(self)
+
+    def __setstate__(self, state):
+        self._bitmap = state
+
+    def __getstate__(self):
+        return self._bitmap
+
+    def __close(self):
+        del self._bitmap

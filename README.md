@@ -49,6 +49,13 @@ b.delete(10)
 print(b.get(10))  # False
 ```
 
+### set kmer
+```python
+b = b = Bitmap((1<< 32) - 1)
+seq = 'AAcgagtcatcgatgcAAcgagtcatcgatgctagtcgta'.upper()
+b.set_kmers(seq, 16)
+```
+
 ### Persistence
 
 ```python
@@ -58,6 +65,6 @@ b.dump(path)
 ```
 
 ```python
-b = Bitmap.load(path)
+b = Bitmap().load(path)
 len(b) == 1000  # True
 ```

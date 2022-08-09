@@ -32,11 +32,14 @@ cdef class Bitmap:
         b._bitmap = cbitmap.BitmapLoad(path)
         return b
     
+    cpdef _set_kmers(self, char* seq, unsigned long long kmer_size):
+        cbitmap.BitmapSetKmers(self._bitmap, seq, kmer_size)
+
     cpdef _dump(self, char* path):
         cbitmap.BitmapDump(self._bitmap, path)
 
     def __len__(self):
-        return cbitmap.BitmaLen(self._bitmap)
+        return cbitmap.BitmapLen(self._bitmap)
 
     def __bool__(self):
         return bool(len(self))
